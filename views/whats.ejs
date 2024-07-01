@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato WhatsApp</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #F5F5DC, #FFFF);
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .contact-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            margin-left: 34%;
+            margin-top: 5%;
+        }
+        .contact-container h1 {
+            color: #128C7E;
+            margin-bottom: 20px;
+        }
+        .contact-container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .contact-container a {
+            display: inline-block;
+            color: #fff;
+            background-color: #25D366;
+            padding: 15px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .contact-container a:hover {
+            background-color: #1DA851;
+        }
+        .contact-container .whatsapp-icon {
+            font-size: 50px;
+            color: #25D366;
+            margin-bottom: 20px;
+        }
+        .contact-container footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/navbar.ejs'); %>
+    <div class="contact-container">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+        <h1>Entre em contato com o WhatsApp:</h1>
+        <p>
+            <a href="https://wa.me/+5543999439080" target="_blank">Clique aqui para conversar</a>
+        </p>
+        <footer>
+            <p>Responderemos o mais breve possível.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .col-md-10 {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 100%;
+            margin: 0 auto;
+            position: relative; 
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        h3{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar.ejs'); %>
+    <div class="container mt-1">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <img src="imagens/DAY USE!! (1).png" alt="">
+                <h3>Confirmados: </h3>
+                <% obj_pessoadayuse.forEach(pessoadayuse => { %>
+                    <div class="person-entry">
+                        <%= pessoadayuse.nome %> <%= pessoadayuse.sobrenome %>
+                        <form action="/update/<%= pessoadayuse.ID %>" method="POST" style="display: inline;">
+                            <input type="text" name="novoNome" placeholder="Novo nome">
+                            <input type="text" name="novoSobrenome" placeholder="Novo sobrenome">
+                            <button type="submit"><i class="bi bi-check-circle-fill"></i></button>
+                        </form>
+                        <form action="/delete/<%= pessoadayuse.ID %>" method="POST" style="display: inline;">
+                            <button type="submit"><i class="bi bi-trash-fill"></i></button>
+                        </form>
+                    </div>
+            <hr>
+            <% }) %>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</body>
+</html>

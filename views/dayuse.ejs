@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .col-md-10 {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 150px;
+            margin: 0 auto;
+            position: relative; 
+            margin-bottom: 20px; /* Espaçamento entre as divs */
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .p1 {
+            position: absolute;
+            top: 42%; 
+            left: 49%; 
+            transform: translate(400%, -50%); 
+            z-index: 1; 
+        }
+
+        .p2 {
+            position: absolute;
+            top: 42%; 
+            left: 34%; 
+            transform: translate(352%, 30%); 
+            z-index: 1; 
+        }
+
+        .botao {
+            position: absolute; 
+            top: 73%; 
+            left: 108%; 
+            transform: translate(-293%, -20%);
+            z-index: 1;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            height: 40px;
+        }
+
+        .nome {
+            position: absolute; 
+            top: 20%; 
+            left: 15.2%; 
+            z-index: 1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .sobrenome {
+            position: absolute; 
+            top: 50%; 
+            left: 15.2%; 
+            z-index: 1;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .botao:hover {
+            background-color: #0056b3; 
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar.ejs'); %>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <% dayuses.forEach(dayuse => { %>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <img src="/imagens/DAY USE!!.png" alt="">
+                    <form action="/participaDayUse" method="post">
+                        <input type="text" id="nome" name="nome" class="nome" placeholder="Nome" required>
+                        <input type="text" id="sobrenome" name="sobrenome" class="sobrenome" placeholder="Sobrenome" required>
+                        <input type="submit" class="botao" value="Participar!">
+                    </form>
+                    <p class="p1"><%= new Date(dayuse.data).toISOString().split('T')[0] %></p>
+                    <p class="p2"><%= dayuse.horario_inicio %> - <%= dayuse.horario_fim %></p>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</body>
+</html

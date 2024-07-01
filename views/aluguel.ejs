@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<style>
+    .calendar {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .days {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .day {
+        flex: 1;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .events {
+        margin-top: 10px;
+    }
+
+    .event {
+        background-color: #f0f0f0;
+        border-left: 3px solid #4CAF50;
+        padding: 8px;
+        margin-bottom: 5px;
+    }
+
+    .event .time {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .botao, .marcado {
+        width: 100%;
+        background-color: white;
+        border: none;
+    }
+
+    .botao-selecionado {
+        background-color: rgba(128, 128, 128, 0.339);
+    }
+</style>
+<body>
+    <%- include('partials/navbar.ejs'); %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="calendar mt-2">
+                    <div class="header">
+                        <h2>Reservas</h2>
+                    </div>
+                    
+                    <% 
+                    const eventosOrdenados = obj_aluguel.sort((a, b) => {
+                        const dataA = new Date(a.data);
+                        const dataB = new Date(b.data);
+                        if (dataA < dataB) return -1;
+                        if (dataA > dataB) return 1;
+
+                        if (a.horario < b.horario) return -1;
+                        if (a.horario > b.horario) return 1;
+
+                        if (a.quadra < b.quadra) return -1;
+                        if (a.quadra > b.quadra) return 1;
+
+                        return 0;
+                    });
+                    
+                    const formatarData = (dataString) => {
+                        const data = new Date(dataString);
+                        const dia = String(data.getDate()).padStart(2, '0');
+                        const mes = String(data.getMonth() + 1).padStart(2, '0');
+                        const ano = data.getFullYear();
+                        return `${dia}/${mes}/${ano}`;
+                    };
+
+                    eventosOrdenados.forEach(aluguel => { 
+                    %>
+                        <div class="events">
+                            <div class="event">
+                                <span class="time" data-horario="<%= aluguel.horario %>"><%= aluguel.horario %></span> | <%= formatarData(aluguel.data) %> | <%= aluguel.quadra %> - <%= aluguel.nome %> <%= aluguel.sobrenome %>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+                <div class="mt-3">
+                    <form action="/enviaFormAluguel" method="POST">
+                        <div class="d-flex mt-1">
+                            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome">
+                            <input type="text" name="sobrenome" id="sobrenome" class="form-control" placeholder="Sobrenome">
+                        </div>
+                        <div class="d-flex mt-1">
+                            <select class="form-select" name="esporte" id="esporte">
+                                <option value="beach">Beach-Tennis</option>
+                                <option value="futevolei">Futevolei</option>
+                                <option value="volei">Volei</option>
+                            </select>
+                            <select class="form-select" name="quadra" id="quadra">
+                                <option value="1">Quadra 1</option>
+                                <option value="2">Quadra 2</option>
+                                <option value="3">Quadra 3</option>
+                                <option value="4">Quadra 4</option>
+                            </select>
+                        </div>
+                        <div class="d-flex mt-1">
+                            <input class="form-control" type="date" name="data" id="data">
+                            <input class="form-control" type="time" name="horario" id="horario">
+                        </div>
+                        <div class="mt-1">
+                            <input class="btn btn-primary" type="submit" value="Reservar" onclick="reservar()">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
